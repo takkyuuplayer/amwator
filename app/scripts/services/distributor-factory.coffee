@@ -15,12 +15,10 @@ angular.module('amwatorApp')
     class Distributor
       constructor: (pv = 0) ->
         @pv = pv
+        @number = 1
         @children = []
-      addChild: (distributor, number = 1) ->
-        @children.push {
-          distributor: distributor
-          number: number
-        }
+      addChild: (distributor) ->
+        @children.push distributor
       clearChild: ->
         @children = []
       setPv: (pv) ->
@@ -28,16 +26,16 @@ angular.module('amwatorApp')
       getPv: ->
         @pv
       calcGroupPv: ->
-        @pv + _.reduce @children, (memo, child) ->
-          memo + child.distributor.calcGroupPv() * child.number
+        parseInt(@pv) + _.reduce @children, (memo, distributor) ->
+          memo + distributor.calcGroupPv() * distributor.number
         , 0
       calcCashback: ->
         groupPv = @calcGroupPv()
         groupPv * amuwatorUtil.getCashbackRate(groupPv) / 100
 
       calcIncentive: ->
-        @calcCashback() - _.reduce @children, (memo, child) ->
-          memo + child.distributor.calcCashback() * child.number
+        @calcCashback() - _.reduce @children, (memo, distributor) ->
+          memo + distributor.calcCashback() * distributor.number
         , 0
 
     # Public API here

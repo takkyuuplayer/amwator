@@ -27,9 +27,9 @@ describe 'Service: distributorFactory', ->
   it 'distributor with child', ->
     child = distributorFactory.createInstance(500)
     expect(child.calcGroupPv()).toBe 500
-    distributor.addChild(child, 10)
 
-    expect(distributor).not.toBe(child)
+    child.number = 10
+    distributor.addChild(child)
 
     expect(distributor.calcGroupPv()).toBe 5000
 
@@ -40,7 +40,8 @@ describe 'Service: distributorFactory', ->
     expect(distributor.calcCashback()).toBe 30000 * 3 / 100
 
     child = distributorFactory.createInstance(6000)
-    distributor.addChild(child, 10)
+    child.number = 10
+    distributor.addChild(child)
 
     expect(distributor.calcCashback()).toBe 90000 * 6 / 100
 
@@ -51,11 +52,13 @@ describe 'Service: distributorFactory', ->
     expect(distributor.calcIncentive()).toBe 30000 * 3 / 100
 
     child = distributorFactory.createInstance(6000)
-    distributor.addChild(child, 10)
+    child.number = 10
+    distributor.addChild(child)
 
     expect(distributor.calcIncentive()).toBe 90000 * 6 / 100
 
     child = distributorFactory.createInstance(30000)
-    distributor.addChild(child, 10)
+    child.number = 10
+    distributor.addChild(child)
 
     expect(distributor.calcIncentive()).toBe(390000 * 12 / 100 - 30000 * 3 / 100 * 10)
