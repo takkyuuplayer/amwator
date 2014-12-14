@@ -8,9 +8,11 @@ describe 'Service: distributorFactory', ->
   # instantiate service
   distributorFactory = {}
   distributor = undefined
-  beforeEach inject (_distributorFactory_) ->
+  util = {}
+  beforeEach inject (_distributorFactory_, _amuwatorUtil_) ->
     distributorFactory = _distributorFactory_
     distributor = distributorFactory.createInstance()
+    util = _amuwatorUtil_
 
   it 'should do something', ->
     expect(!!distributorFactory).toBe true
@@ -31,3 +33,29 @@ describe 'Service: distributorFactory', ->
 
     expect(distributor.calcGroupPv()).toBe 5000
 
+  it 'calcCashback', ->
+    expect(distributor.calcCashback()).toBe 0
+
+    distributor.setPv(30000)
+    expect(distributor.calcCashback()).toBe 30000 * 3 / 100
+
+    child = distributorFactory.createInstance(6000)
+    distributor.addChild(child, 10)
+
+    expect(distributor.calcCashback()).toBe 90000 * 6 / 100
+
+  it 'calcIncentive', ->
+    expect(distributor.calcIncentive()).toBe 0
+
+    distributor.setPv(30000)
+    expect(distributor.calcIncentive()).toBe 30000 * 3 / 100
+
+    child = distributorFactory.createInstance(6000)
+    distributor.addChild(child, 10)
+
+    expect(distributor.calcIncentive()).toBe 90000 * 6 / 100
+
+    child = distributorFactory.createInstance(30000)
+    distributor.addChild(child, 10)
+
+    expect(distributor.calcIncentive()).toBe(390000 * 12 / 100 - 30000 * 3 / 100 * 10)
