@@ -15,5 +15,46 @@ describe 'Controller: MainCtrl', ->
       $scope: scope
     }
 
-  it 'should attach a list of awesomeThings to the scope', ->
-    expect(scope.awesomeThings.length).toBe 3
+  it 'bount values', ->
+    expect(scope.currencyRate).toBe(1.35)
+    expect(scope.me).toBeDefined()
+    expect(scope.children).toEqual([])
+    expect(scope.addChild).toBeDefined()
+    expect(scope.removeChild).toBeDefined()
+
+  it 'addChild', ->
+    scope.addChild()
+    expect(scope.children.length).toBe(1)
+    expect(scope.children[0]).toBe(scope.me.children[0])
+
+    scope.addChild()
+    expect(scope.children.length).toBe(2)
+    expect(scope.children[1]).not.toBe(scope.me.children[0])
+    expect(scope.children[1]).toBe(scope.children[0].children[0])
+
+  it 'removeChild', ->
+    scope.addChild()
+    scope.addChild()
+    scope.addChild()
+
+    expect(scope.children.length).toBe(3)
+    expect(scope.me.children.length).toBe(1)
+    expect(scope.children[0].children.length).toBe(1)
+    expect(scope.children[1].children.length).toBe(1)
+    expect(scope.children[2].children.length).toBe(0)
+
+    scope.removeChild()
+    expect(scope.children.length).toBe(2)
+    expect(scope.me.children.length).toBe(1)
+    expect(scope.children[0].children.length).toBe(1)
+    expect(scope.children[1].children.length).toBe(0)
+    expect(scope.children[2]).not.toBeDefined()
+
+    scope.removeChild()
+    expect(scope.children.length).toBe(1)
+    expect(scope.me.children.length).toBe(1)
+    expect(scope.children[0].children.length).toBe(0)
+
+    scope.removeChild()
+    expect(scope.children.length).toBe(0)
+    expect(scope.me.children.length).toBe(0)
