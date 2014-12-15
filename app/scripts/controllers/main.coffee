@@ -9,7 +9,7 @@
 ###
 angular.module('amwatorApp')
   .controller 'MainCtrl', ($scope, distributorFactory) ->
-    $scope.currencyRate = 1.35 # JPY/PV
+    $scope.currencyRate = 1.39 # JPY/PV
 
     $scope.me = distributorFactory.createInstance(0)
     $scope.children = []

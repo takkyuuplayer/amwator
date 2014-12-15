@@ -1,4 +1,4 @@
-<h1>Rate: {{currencyRate}} [PV/JPY]</h1>
+<h1>Rate: {{currencyRate}} [JPY/PV]</h1>
 
 <table class="table table-striped table-condensed">
   <thead>
@@ -17,7 +17,7 @@
       <td>0</td>
       <td><span class="label label-primary">あなた</span></td>
       <td>{{me.number}}</td>
-      <td><input ng-model="me.pv"> = 毎月約 {{ me.pv * currencyRate | number}} 円相当の日用品を購入</td>
+      <td><input ng-model="me.pv"> = 毎月約 {{ me.pv * currencyRate | number:0}} 円相当の日用品を購入</td>
       <td>{{me.calcGroupPv()}}</td>
       <td>{{me.calcCashback()}}</td>
       <td>{{me.calcIncentive()}}</td>
@@ -34,7 +34,7 @@
         <span class="label label-default">{{$index}}th child</span> が招待した<b>平均</b>人数
         </p>
       </td>
-      <td><input ng-model="distributor.pv"> = 毎月約 {{ distributor.pv * currencyRate | number}} 円相当の日用品を購入</td>
+      <td><input ng-model="distributor.pv"> = 毎月約 {{ distributor.pv * currencyRate | number:0}} 円相当の日用品を購入</td>
       <td>{{distributor.calcGroupPv()}}</td>
       <td>{{distributor.calcCashback()}}</td>
       <td>{{distributor.calcIncentive()}}</td>

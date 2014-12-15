@@ -16,7 +16,7 @@ describe 'Controller: MainCtrl', ->
     }
 
   it 'bount values', ->
-    expect(scope.currencyRate).toBe(1.35)
+    expect(scope.currencyRate).toBe(1.39)
     expect(scope.me).toBeDefined()
     expect(scope.children).toEqual([])
     expect(scope.addChild).toBeDefined()
