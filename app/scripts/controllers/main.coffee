@@ -27,3 +27,6 @@ angular.module('amwatorApp')
       $scope.children.pop()
       parent = if $scope.children.length > 0 then _.last($scope.children) else $scope.me
       parent.clearChild()
+
+    $scope.totalNumberOfPeople = (distributor) ->
+      if distributor.children.length is 0 then distributor.number else distributor.number * (1 + $scope.totalNumberOfPeople(distributor.children[0]))
